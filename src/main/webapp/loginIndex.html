@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--jq-->
+    <script src="js/jquery.min.js"></script>
+    <!--bootstrap-->
+    <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <!--layui-->
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <script src="layui/layui.all.js"></script>
+</head>
+<body style="text-align: center" background="img/timg.jpg">
+<div style="text-align:center;background-color:rgba(255,255,255,0.78);margin: 0 auto;width: 300px;height: 320px ;border:1px solid #ffffff;margin-top: 100px;border-radius: 20px">
+    <p style="margin-top: 20px"><h2>图书借阅系统</h2></p>
+    <form class="bs-example bs-example-form" role="form" action="/readerLogin">
+        <div class="input-group" style="margin:0 auto;margin-top: 20px;width: 90%" >
+            <span class="input-group-addon"><i class="layui-icon layui-icon-username"></i></span>
+            <input type="text" class="form-control" placeholder="输入账号" name="readername" id="readername">
+        </div>
+        <br>
+        <div class="input-group" style="margin:0 auto;width: 90%;">
+            <span class="input-group-addon"><i class="layui-icon layui-icon-password"></i></span>
+            <input type="password" class="form-control"  placeholder="输入密码" name="password" id="password">
+        </div>
+        <br>
+        <select class="form-control" style="margin: 0 auto;width: 90%"name="identy">
+            <option>学生</option>
+            <option>管理员</option>
+        </select>
+        <br>
+        <p>
+            <a class="btn btn-default" href="#" role="button">账户注册</a>
+            <a class="btn btn-default" href="#" role="button"style="margin-left: 100px">忘记密码</a>
+        </p>
+        <br>
+        <button type="submit" style="margin: 0 auto;width: 90%;background-color: rgb(230,233,240)" class="btn btn-default" id="submit">登录</button>
+    </form>
+
+</div>
+</body>
+<script>
+    $(document).ready(function(){
+        $("#submit").mouseover(function(){
+            var name =$("#readername").val();
+            var pass = $("#password").val();
+            /*alert(name);
+            alert(pass);*/
+            if (name==""||pass==""){
+                $("#submit").attr("disabled", "true");
+                $("#submit").attr("class", "btn btn-default disabled");
+            }
+            else if (name!=null&&pass!=null){
+                $("#submit").removeAttr("disabled");
+                $("#submit").attr("class", "btn btn-default");
+            }
+        });
+    });
+</script>
+</html>

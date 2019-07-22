@@ -15,5 +15,8 @@
     <result column="booknum" property="booknum" jdbcType="INTEGER" />
     <result column="note" property="note" jdbcType="VARCHAR" />
   </resultMap>
-
+  <!--读者登录-->
+  <select id="readerLogin" parameterType="com.bank.pojo.Reader" resultType="com.bank.pojo.Reader">
+    select * from readertable where readername=#{readername} and password=#{password};
+  </select>
 </mapper>
