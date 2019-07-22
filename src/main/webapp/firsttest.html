@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/jquery.min.js"></script>
+
+</head>
+<br>
+<form id="postFrom" action="">
+    <input type="text" value="123" name="username" id="username">
+    <input type="text" value="123" name="password" id="password">
+    <button id="submitButton" type="button" onclick="subm()">submit</button>
+</form>
+<button onclick="show()">点击一下 </button>
+<!-- 这里button写在form外面，避免通过action提交表单 -->
+
+<script>
+    function subm() {
+        var username=$('#username').val();
+        var password=$('#password').val();
+        alert(username);
+        alert(password);
+        $.ajax({
+            type:"post",
+            url:"userLogin",
+            data: "username=" + username + "&password=" + password,
+            success: function (re) {
+                if (re=="true")
+                {
+                    alert("时报");
+                    window.location.href="success.html";
+                }
+                else
+                {
+                    alert("时报");
+                    window.location.href="fail.html";
+                }
+            },
+            error:function () {
+                alert("错误")
+            }
+
+        })
+    }
+    function show() {
+        $.ajax({
+            type:"post",
+            url:"jsontest",
+            success:function (re) {
+                var jsonlist=eval(re);
+                console.log(re);
+                alert(jsonlist.length);
+                for (x in jsonlist){
+                    alert(jsonlist[x].username)
+                }
+            }
+        })
+    }
+</script>
+<script type="text/javascript">
+
+</script>
+<script>
+
+</script>
+</body>
+</html>
