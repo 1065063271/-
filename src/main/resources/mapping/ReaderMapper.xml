@@ -19,4 +19,8 @@
   <select id="readerLogin" parameterType="com.bank.pojo.Reader" resultType="com.bank.pojo.Reader">
     select * from readertable where readername=#{readername} and password=#{password};
   </select>
+  <insert id="readerRes" parameterType="com.bank.pojo.Reader">
+    insert into readertable (readername,password,identy,readersex,tel,effecttime,ineffecttime)
+    values (#{readername},#{password},#{identy},#{readersex},#{tel},#{effecttime},#{ineffecttime})
+  </insert>
 </mapper>

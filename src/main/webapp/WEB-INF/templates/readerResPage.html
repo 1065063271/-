@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--jq-->
+    <script src="../../js/jquery.min.js"></script>
+    <!--bootstrap-->
+    <script src="../../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../../bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <!--layui-->
+    <link rel="stylesheet" href="../../layui/css/layui.css">
+    <script src="../../layui/layui.all.js"></script>
+    <!--laydate-->
+</head>
+<body style="text-align: center" background="../../img/timg.jpg">
+<div style="text-align:center;background-color:rgba(255,255,255,0.78);margin: 0 auto;width: 300px;height: 320px ;border:1px solid #ffffff;margin-top: 100px;border-radius: 20px">
+    <p style="margin-top: 20px"><h2>账户注册</h2></p>
+    <form class="bs-example bs-example-form" role="form" action="/readerRes">
+        <div class="input-group" style="margin:0 auto;margin-top: 15px;width: 90%" >
+            <span class="input-group-addon"><i class="layui-icon layui-icon-username"></i></span>
+            <input type="text" class="form-control" placeholder="输入学号" name="readername" id="readername">
+        </div>
+        <br>
+        <div class="input-group" style="margin:0 auto;width: 90%;">
+            <span class="input-group-addon"><i class="layui-icon layui-icon-password"></i></span>
+            <input type="password" class="form-control"  placeholder="输入密码" name="password" id="password1">
+        </div>
+        <br>
+        <div class="input-group" style="margin:0 auto;width: 90%;">
+            <span class="input-group-addon"><i class="layui-icon layui-icon-password"></i></span>
+            <input type="password" class="form-control"  placeholder="确认密码" id="password2">
+        </div>
+        <div id="calter" class="alert alert-warning" role="alert"style="height: 10px;width: 90%;margin: 0 auto;padding-top: 1px;padding-bottom: 20px">两次密码不一致</div>
+        <div style="text-align: center;width: 90%;margin: 0 auto;" class="input-group">
+            <!--<select class="form-control" style="margin: 0 auto;width: 21%"name="identy">
+                <option>男</option>
+                <option>女</option>
+            </select>-->
+            <span class="input-group-addon" style="height: 34px;"><i class="layui-icon layui-icon-date"></i></span>
+            <input type="text" class="layui-input" id="test1" style="height: 34px">
+        </div>
+        <br>
+        <button type="submit" style="margin: 0 auto;width: 90%;background-color: rgb(230,233,240)" class="btn btn-default" id="submit">注册</button>
+    </form>
+
+</div>
+</body>
+<script>
+    $(document).ready(function(){
+        $("#submit").mouseover(function(){
+            var name =$("#readername").val();
+            var pass = $("#password1").val();
+            var passc= $("#password2").val();
+            var date = $("#test1").val();
+            /*alert(name);
+            alert(pass);*/
+            if (name==""||pass==""||passc==""||date==""||pass!=passc){
+                $("#submit").attr("disabled", "true");
+                $("#submit").attr("class", "btn btn-default disabled");
+            }
+            else if (name!=null&&pass!=null&&passc!=null&&date!=null&&pass==passc){
+                $("#submit").removeAttr("disabled");
+                $("#submit").attr("class", "btn btn-default");
+            }
+        });
+    });
+    /*$(document).ready(function () {
+        $("#readername").blur(function () {
+            var name=$("#readername").val();
+            $.ajax({
+                type:"post",
+                url:""
+            })
+        })
+    })*/
+    $(document).ready(function () {
+        $("#password2").bind("input propertychange",function () {
+            var pass1=$("#password1").val();
+            var pass2=$("#password2").val();
+            if (pass1==pass2){
+               $("#calter").attr("class","alert alert-success");
+               $("#calter").text("正确");
+            }
+            else {
+                $("#calter").attr("class","alert alert-warning");
+                $("#calter").text("两次密码不一致");
+            }
+        })
+    })
+</script>
+<script>
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#test1'
+            //,type: 'date' //默认，可不填
+        });
+    });
+</script>
+</html>

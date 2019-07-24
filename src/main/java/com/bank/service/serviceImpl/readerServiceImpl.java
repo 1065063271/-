@@ -19,4 +19,16 @@ public class readerServiceImpl implements readerService {
             return false;
         }
     }
+
+    @Override
+    public boolean readerRes(Reader reader) {
+        if (readerMapper.readerRes(reader)==1){
+            return true;
+        }
+        else if (readerMapper.readerRes(reader)==0){
+            return false;
+        }
+        else
+            return false;
+    }
 }

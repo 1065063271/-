@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="cn" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--jq-->
+    <script src="../../js/jquery.min.js"></script>
+    <!--bootstrap-->
+    <script src="../../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../../bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <!--layui-->
+    <link rel="stylesheet" href="../../layui/css/layui.css">
+    <script src="../../layui/layui.all.js"></script>
+    <!--字体-->
+    <script type="text/javascript" src="https://cdn.repository.webfont.com/wwwroot/js/wf/youziku.api.min.js"></script>
+    <script type="text/javascript">
+        $webfont.load("#paihang", "0564995dbaa94cd89d1dfa50e278a9a7", "jdlibianjian");
+        $webfont.load("#headtitle", "0564995dbaa94cd89d1dfa50e278a9a7", "jdlibianjian");
+        /*$webfont.load("#id1,.class1,h1", "0564995dbaa94cd89d1dfa50e278a9a7", "jdlibianjian");*/
+        /*．．．*/
+        $webfont.draw();
+    </script>
+    <style type="text/css">
+        .col-md-4 column{
+            border-color: red;
+            border-width: 5px;
+            border-style: solid;
+        }
+        a:hover{color: #ff4b33; /*鼠标在a上面时，span变蓝色*/
+        text-decoration: none;
+        }
+        a{
+            font-family: Monospace;
+        }
+    </style>
+</head>
+<body style="text-align: center">
+    <div name="head">
+        <nav class="navbar navbar-default" role="navigation" style="margin-bottom: 5px">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#" id="headtitle" style="font-size: 25px">图书管理系统</a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <form class="navbar-form navbar-left" role="search" style="margin-right: 100px">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="输入书名、作者" />
+                        </div> <button type="submit" class="btn btn-default" >搜索</button>
+                    </form>
+                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> 个人中心</a></li>
+                    <li><a href="/WEB-INF/templates/loginIndex.html"><span class="glyphicon glyphicon-log-in"></span> 退出</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div name="body" style="margin: 0 auto;width: 1000px;background-color: #f8f8f8">
+        <div class="layui-row layui-col-space10 layui-col-space10" style="background-color: #f8f8f8">
+            <div class="layui-col-md8"style="background-color: #f8f8f8">
+                <div name="body-turn">
+                    <div class="layui-carousel" id="test1">
+                        <div carousel-item>
+                            <div style="background:url('/img/1.jpg')">条目1</div>
+                            <div style="background:url('/img/2.jpg')">条目2</div>
+                            <div style="background:url('/img/3.jpg')">条目3</div>
+                            <div style="background:url('/img/4.jpg')">条目4</div>
+                            <div style="background:url('/img/5.jpg')">条目5</div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row clearfix layui-card" style="margin-tpo:10px">
+                    <div class="col-md-4 column layui-card" >
+                        <ol style="text-align: left;margin-left: 10px">
+                            <span><h4 style="font-weight: bolder">马列主义毛邓思想</h4></span>
+                            <br>
+                            <div th:each="A:${A}">
+                            <a href="login"th:text="${A.bookname}">
+                                <!--Lorem ipsum dolor sit amet-->
+                            </a>
+                            <hr style="height:1px;border:none;border-top:1px solid #555555;" />
+                            </div>
+                            <!--<li>
+                                Consectetur adipiscing elit
+                            </li>
+                            <hr style="height:1px;border:none;border-top:1px solid #555555;" />
+                            <li>
+                                Integer molestie lorem at massa
+                            </li>
+                            <hr style="height:1px;border:none;border-top:1px solid #555555;" />
+                            <li>
+                                Facilisis in pretium nisl aliquet
+                            </li>
+                            <hr style="height:1px;border:none;border-top:1px solid #555555;" />
+                            <li>
+                                Nulla volutpat aliquam velit
+                            </li>
+                            <hr style="height:1px;border:none;border-top:1px solid #555555;" />-->
+                        </ol>
+                    </div>
+                    <div class="col-md-4 column layui-card">
+                        <ol style="text-align: left;margin-left: 10px">
+                            <span><h4 style="font-weight: bolder">哲学</h4></span>
+                            <br>
+                            <div th:each="B:${B}">
+                                <a href="login"th:text="${B.bookname}">
+                                    <!--Lorem ipsum dolor sit amet-->
+                                </a>
+                                <hr style="height:1px;border:none;border-top:1px solid #555555;" />
+                            </div>
+                        </ol>
+                    </div>
+                    <div class="col-md-4 column layui-card">
+                        <ol style="text-align: left;margin-left: 10px">
+                            <span><h4 style="font-weight: bolder">历史、地理</h4></span>
+                            <br>
+                            <div th:each="C:${C}">
+                                <a href="login"th:text="${C.bookname}">
+                                    <!--Lorem ipsum dolor sit amet-->
+                                </a>
+                                <hr style="height:1px;border:none;border-top:1px solid #555555;" />
+                            </div>
+                        </ol>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div class="row clearfix layui-card" style="margin-top: -30px">
+                    <div class="col-md-4 column layui-card">
+                        <ol style="text-align: left;margin-left: 10px">
+                            <span><h4 style="font-weight: bolder">数理科学和化学</h4></span>
+                            <br>
+                            <div th:each="D:${D}">
+                                <a href="login"th:text="${D.bookname}">
+                                    <!--Lorem ipsum dolor sit amet-->
+                                </a>
+                                <hr style="height:1px;border:none;border-top:1px solid #555555;" />
+                            </div>
+                        </ol>
+                    </div>
+                    <div class="col-md-4 column layui-card">
+                        <ol style="text-align: left;margin-left: 10px">
+                            <span><h4 style="font-weight: bolder">天文学、地球科学</h4></span>
+                            <br>
+                            <div th:each="E:${E}">
+                                <a href="login"th:text="${E.bookname}">
+                                    <!--Lorem ipsum dolor sit amet-->
+                                </a>
+                                <hr style="height:1px;border:none;border-top:1px solid #555555;" />
+                            </div>
+                        </ol>
+                    </div>
+                    <div class="col-md-4 column layui-card">
+                        <ol style="text-align: left;margin-left: 10px">
+                            <span><h4 style="font-weight: bolder">医药学</h4></span>
+                            <br>
+                            <div th:each="F:${F}">
+                                <a href="login"th:text="${F.bookname}">
+                                    <!--Lorem ipsum dolor sit amet-->
+                                </a>
+                                <hr style="height:1px;border:none;border-top:1px solid #555555;" />
+                            </div>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md3 layui-col-md-offset1 layui-card" style="background-color: #ffffff;height: 400px;text-align: left;">
+                <br>
+                <br>
+                <li style="padding-left: 60px;font-size: 30px" id="paihang">图书排行</li>
+                <br>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>
+                            排名
+                        </th>
+                        <th>
+                            书名
+                        </th>
+                        <th>
+                            借阅指数
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            1
+                        </td>
+                        <td>
+                            TB - Monthly
+                        </td>
+                        <td>
+                            01/04/2012
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            2
+                        </td>
+                        <td>
+                            TB - Monthly
+                        </td>
+                        <td>
+                            02/04/2012
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            3
+                        </td>
+                        <td>
+                            TB - Monthly
+                        </td>
+                        <td>
+                            03/04/2012
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            4
+                        </td>
+                        <td>
+                            TB - Monthly
+                        </td>
+                        <td>
+                            04/04/2012
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!--<div name="body-left" style="width: 80%;">
+            <div name="body-turn">
+                <div class="layui-carousel" id="test1">
+                    <div carousel-item>
+                        <div>条目1</div>
+                        <div>条目2</div>
+                        <div>条目3</div>
+                        <div>条目4</div>
+                        <div>条目5</div>
+                    </div>
+                </div>
+            </div>
+            <div name="book-type-list">
+
+            </div>
+        </div>
+        <div name="body-right"style="background-color: #0C0C0C;width: 20%;height: 100px;float: right">
+
+        </div>-->
+    </div>
+    <div name="foot">
+
+    </div>
+</body>
+<script>
+    layui.use('carousel', function(){
+        var carousel = layui.carousel;
+        //建造实例
+        carousel.render({
+            elem: '#test1'
+            ,width: '100%' //设置容器宽度
+            ,arrow: 'always' //始终显示箭头
+            //,anim: 'updown' //切换动画方式
+        });
+    });
+</script>
+</html>

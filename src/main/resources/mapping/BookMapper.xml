@@ -14,5 +14,22 @@
     <result column="introduction" property="introduction" jdbcType="VARCHAR" />
     <result column="note" property="note" jdbcType="VARCHAR" />
   </resultMap>
-
+  <select id="Abook" resultType="com.bank.pojo.Book">
+    select bookid,bookname from booktable where booktype='A' LIMIT 5;
+  </select>
+  <select id="Bbook" resultType="com.bank.pojo.Book">
+    select bookid,bookname from booktable where booktype='B' LIMIT 5;
+  </select>
+  <select id="Cbook" resultType="com.bank.pojo.Book">
+    select bookid,bookname from booktable where booktype='C' LIMIT 5;
+  </select>
+  <select id="Dbook" resultType="com.bank.pojo.Book">
+    select bookid,bookname from booktable where booktype='D' LIMIT 5;
+  </select>
+  <select id="Ebook" resultType="com.bank.pojo.Book">
+    select bookid,bookname from booktable where booktype='E' LIMIT 5;
+  </select>
+  <select id="Fbook" resultType="com.bank.pojo.Book">
+    select bookid,bookname from booktable where booktype='F' LIMIT 5;
+  </select>
 </mapper>
