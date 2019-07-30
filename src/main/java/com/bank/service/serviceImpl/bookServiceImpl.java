@@ -1,7 +1,7 @@
 package com.bank.service.serviceImpl;
 
 import com.bank.dao.BookMapper;
-import com.bank.pojo.Book;
+import com.bank.pojo.*;
 import com.bank.service.bookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,5 +40,61 @@ public class bookServiceImpl implements bookService {
     @Override
     public List<Book> Fbook() {
         return bookMapper.Fbook();
+    }
+
+    @Override
+    public List<Book> seltest(Selpojo selpojo) {
+        return bookMapper.seltest(selpojo);
+    }
+
+    @Override
+    public Book selcont(Integer bookid) {
+        return bookMapper.selcont(bookid);
+    }
+
+    @Override
+    public Boolean selrate(Rate rate) {
+        if (bookMapper.selrate(rate).size()==0){
+            return true;
+        }
+        else
+            return false;
+    }
+
+    @Override
+    public boolean rate(Rate rate) {
+        if (bookMapper.rate(rate)==true)
+            return true;
+        else
+            return false;
+    }
+
+    @Override
+    public boolean updatarate2(Rate rate) {
+        if (bookMapper.updataratet(rate))
+            return true;
+        else return false;
+    }
+
+    @Override
+    public boolean updatarate(Integer bookid) {
+        if (bookMapper.updatarate(bookid))
+            return true;
+        else
+            return false;
+    }
+
+    @Override
+    public boolean newcom(Comment comment) {
+        if (bookMapper.newcom(comment)){
+            return true;
+        }
+        else
+            return false;
+    }
+
+    @Override
+    public List<CommentP> allcom(Integer bookid) {
+        return bookMapper.allcom(bookid);
     }
 }

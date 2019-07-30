@@ -13,6 +13,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /*@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:spring/spring-*.xml")*/
@@ -22,6 +26,8 @@ public class readerController {
     readerService readerService;
     @Autowired
     bookService bookService;
+    @Autowired
+    HttpSession httpSession;
     @RequestMapping("readerLogin")
     public String readerLogin(Reader reader, Model model) {
         model.addAttribute("A",bookService.Abook());
@@ -31,10 +37,23 @@ public class readerController {
         model.addAttribute("E",bookService.Ebook());
         model.addAttribute("F",bookService.Fbook());
         if (readerService.readerLogin(reader)== true) {
+            httpSession.setAttribute("user",reader.getReadername());
+            httpSession.setAttribute("readerid",readerService.selid(reader.getReadername()));
+            System.out.println("zheshi "+readerService.selid(reader.getReadername()));
             return "headPage";
         } else {
             return "loginIndex";
         }
+    }
+    @RequestMapping("getsession")
+    @ResponseBody
+    public String getsession(){
+        return (String) httpSession.getAttribute("user");
+    }
+    @RequestMapping("getreaderid")
+    @ResponseBody
+    public int getreaderid(){
+        return (int) httpSession.getAttribute("readerid");
     }
     @RequestMapping("readerRes")
     public String readerRes(Reader reader){

@@ -15,6 +15,10 @@
     <result column="booknum" property="booknum" jdbcType="INTEGER" />
     <result column="note" property="note" jdbcType="VARCHAR" />
   </resultMap>
+  <!--以name查找用户id-->
+  <select id="selid" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select readername from readertable where readerid=#{redaerid}
+  </select>
   <!--读者登录-->
   <select id="readerLogin" parameterType="com.bank.pojo.Reader" resultType="com.bank.pojo.Reader">
     select * from readertable where readername=#{readername} and password=#{password};

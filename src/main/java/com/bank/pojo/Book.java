@@ -63,6 +63,33 @@ public class Book implements Serializable {
     private Integer brrownum;
     private Integer flowernum;
     private String photoadd;
+    private String position;
+    private Integer restnum;
+    private Integer bookrate;
+
+    public Integer getBookrate() {
+        return bookrate;
+    }
+
+    public void setBookrate(Integer bookrate) {
+        this.bookrate = bookrate;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public Integer getRestnum() {
+        return restnum;
+    }
+
+    public void setRestnum(Integer restnum) {
+        this.restnum = restnum;
+    }
 
     public String getBooketype() {
         return booktype;

@@ -1,10 +1,124 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cn" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>搜索结果</title>
+    <!--jq-->
+    <script src="../../js/jquery.min.js"></script>
+    <!--bootstrap-->
+    <script src="../../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../../bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <!--layui-->
+    <link rel="stylesheet" href="../../layui/css/layui.css">
+    <script src="../../layui/layui.all.js"></script>
 </head>
-<body>
 
+<body style="text-align: center">
+<div class="layui-row" style="text-align: center">
+    <nav class="navbar navbar-default" role="navigation" style="margin-bottom: 5px">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#" id="headtitle" style="font-size: 25px">图书管理系统</a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <form action="/selbook" class="navbar-form navbar-left" role="search" style="margin-right: 100px">
+                    <div class="form-group">
+                        <input name="key"  type="text" class="form-control" placeholder="输入书名、作者"/>
+                    </div>
+                    <input type="submit" class="btn btn-default" value="搜索"/>
+                </form>
+                <li><a href="#"><span class="glyphicon glyphicon-user"></span> 个人中心</a></li>
+                <li><a href="/WEB-INF/templates/loginIndex.html"><span class="glyphicon glyphicon-log-in"></span> 退出</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="layui-col-xs12" mc-ace="~"
+         style="width: 1000px;  margin: auto;position: absolute;top: 60px; left: 0; bottom: 0; right: 0;">
+        <table class="layui-table" id="content" name="content">
+            <thead>
+            <tr>
+                <th class="layui-col-xs2">书籍</th>
+                <th class="layui-col-xs7">简介</th>
+                <th class="layui-col-xs3">操作</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="layui-col-xs12"></div>
+</div>
 </body>
+<script th:inline="javascript">
+    var key =[[${key}]];
+    layui.use('flow', function () {
+        var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
+        var flow = layui.flow;
+        flow.load({
+            elem: '#content' //指定列表容器
+            , done: function (page, next) { //到达临界点（默认滚动触发），触发下一页
+                var lis = [];
+                //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+                $.get('/seltest?page=' + page + '&booknamekey=' + key, function (res) {
+                    var jsontest = eval("(" + res + ")");/*这里后台传来的事json字符串需要转成实体*/
+                    //假设你的列表返回在data集合中
+                    console.log(jsontest[1]);
+                    layui.each(jsontest[1], function (index, item) {
+                        lis.push('<tbody>\n' +
+                            '        <tr>\n' +
+                            '            <td class="">\n' +
+                            '                <div class="thumbnail">\n' +
+                            '                    <img src="http://cdn.ibootstrap.cn/lorempixel.com/140/140/default.jpg" class="img-responsive">\n' +
+                            '                    <div class="caption">\n' +
+                            '                        <p class="">\n' + item.bookname +
+                            '                            \n' +
+                            '                        </p>\n' +
+                            '                    </div>\n' +
+                            '                </div>\n' +
+                            '            </td>\n' +
+                            '            <td class="">\n' +
+                            '                <dl>\n' +
+                            '                    <dt>\n' +
+                            '                        Description lists\n' +
+                            '                    </dt>\n' +
+                            '                    <dd>\n' +
+                            '                        A description list is perfect for defining terms.\n' +
+                            '                    </dd>\n' +
+                            '                    <dt>\n' +
+                            '                        Euismod\n' +
+                            '                    </dt>\n' +
+                            '                    <dd>\n' +
+                            '                        Vestibulum id ligula porta felis euismod semper eget lacinia odio sem nec elit.\n' +
+                            '                    </dd>\n' +
+                            '                    <dd>\n' +
+                            '                        Donec id elit non mi porta gravida at eget metus.\n' +
+                            '                    </dd>\n' +
+                            '                    <dt>\n' +
+                            '                        Malesuada porta\n' +
+                            '                    </dt>\n' +
+                            '                    <dd>\n' +
+                            '                        Etiam porta sem malesuada magna mollis euismod.\n' +
+                            '                    </dd>\n' +
+                            '                    <dt>\n' +
+                            '                        Felis euismod semper eget lacinia\n' +
+                            '                    </dt>\n' +
+                            '                    <dd>\n' +
+                            '                        Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.\n' +
+                            '                    </dd>\n' +
+                            '                </dl>\n' +
+                            '            </td>\n' +
+                            '            <td class="">\n' +
+                            '                <a typet="button" style="line-height: 28px;height: 28px;padding:5px 5px;" class="layui-bn layui-btn-primary layui-btn-xs" href="selcont?bookid=' + item.bookid + '">书籍详情</a>\n' +
+                            '            </td>\n' +
+                            '        </tr>\n' +
+                            '        </tbody>');
+                    });
+
+                    //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+                    //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+                    next(lis.join(''), page < jsontest[2]);
+                });
+            }
+        });
+    });
+</script>
 </html>

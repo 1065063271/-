@@ -32,4 +32,39 @@
   <select id="Fbook" resultType="com.bank.pojo.Book">
     select bookid,bookname from booktable where booktype='F' LIMIT 5;
   </select>
+  <!--按书名模糊查询-->
+  <select id="seltest" parameterType="com.bank.pojo.Selpojo" resultType="com.bank.pojo.Book">/*不能加分号，后面助手要填充limit*/
+    select bookid,bookname,introduction,author from booktable where bookname like "%"#{booknamekey}"%"
+  </select>
+  <!--按类型查询-->
+
+  <!--携带id搜索点击的书籍内容-->
+  <select id="selcont" parameterType="int" resultType="com.bank.pojo.Book">
+    select * from booktable where bookid=#{bookid};
+  </select>
+  <!--判断是否第一次评分-->
+  <select id="selrate" parameterType="com.bank.pojo.Rate" resultType="com.bank.pojo.Rate">
+    select rateid from bookrate where bookid=#{bookid} and readerid=#{readerid};
+  </select>
+  <!--第一次书籍评分-->
+  <insert id="rate" parameterType="com.bank.pojo.Rate">
+    insert into bookrate (rate, bookid, readerid) values (#{rate},#{bookid},#{readerid});
+  </insert>
+  <!--非第一次评分-->
+  <update id="updataratet" parameterType="com.bank.pojo.Rate">
+    update bookrate set rate=#{rate} where readerid=#{readerid} and bookid=#{bookid};
+  </update>
+  <!--更新平均评分-->
+  <update id="updatarate">
+    update booktable set booktable.bookrate=(select avg (rate) from bookrate where booktable.bookid=#{bookid});
+  </update>
+  <!--对书籍进行评论-->
+  <insert id="newcom" parameterType="com.bank.pojo.Comment">
+    insert into comment (bookid, readername,comment)
+    values (#{bookid},#{readername},#{comment})
+  </insert>
+  <!--查询本书所有品论-->
+  <select id="allcom" parameterType="int" resultType="com.bank.pojo.Comment">
+    select comment,readername from comment;
+  </select>
 </mapper>

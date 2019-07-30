@@ -2,9 +2,11 @@
 <html lang="cn" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>图书大厅</title>
     <!--jq-->
     <script src="../../js/jquery.min.js"></script>
+    <!--jqsession-->
+    <script src="../../js/jquerysession.js"></script>
     <!--bootstrap-->
     <script src="../../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../../bootstrap-3.3.7-dist/css/bootstrap.min.css">
@@ -33,6 +35,7 @@
             font-family: Monospace;
         }
     </style>
+
 </head>
 <body style="text-align: center">
     <div name="head">
@@ -42,10 +45,10 @@
                     <a class="navbar-brand" href="#" id="headtitle" style="font-size: 25px">图书管理系统</a>
                 </div>
                 <ul class="nav navbar-nav navbar-right">
-                    <form class="navbar-form navbar-left" role="search" style="margin-right: 100px">
+                    <form action="/selbook" class="navbar-form navbar-left" role="search" style="margin-right: 100px">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="输入书名、作者" />
-                        </div> <button type="submit" class="btn btn-default" >搜索</button>
+                            <input name="key" type="text" class="form-control" placeholder="输入书名、作者" />
+                        </div> <input type="submit" class="btn btn-default" value="搜索"/>
                     </form>
                     <li><a href="#"><span class="glyphicon glyphicon-user"></span> 个人中心</a></li>
                     <li><a href="/WEB-INF/templates/loginIndex.html"><span class="glyphicon glyphicon-log-in"></span> 退出</a></li>
@@ -74,26 +77,11 @@
                             <span><h4 style="font-weight: bolder">马列主义毛邓思想</h4></span>
                             <br>
                             <div th:each="A:${A}">
-                            <a href="login"th:text="${A.bookname}">
+                            <a th:text="${A.bookname}" th:href="'selcont?bookid='+${A.bookid}">
                                 <!--Lorem ipsum dolor sit amet-->
                             </a>
                             <hr style="height:1px;border:none;border-top:1px solid #555555;" />
                             </div>
-                            <!--<li>
-                                Consectetur adipiscing elit
-                            </li>
-                            <hr style="height:1px;border:none;border-top:1px solid #555555;" />
-                            <li>
-                                Integer molestie lorem at massa
-                            </li>
-                            <hr style="height:1px;border:none;border-top:1px solid #555555;" />
-                            <li>
-                                Facilisis in pretium nisl aliquet
-                            </li>
-                            <hr style="height:1px;border:none;border-top:1px solid #555555;" />
-                            <li>
-                                Nulla volutpat aliquam velit
-                            </li>
                             <hr style="height:1px;border:none;border-top:1px solid #555555;" />-->
                         </ol>
                     </div>
@@ -231,26 +219,6 @@
                 </table>
             </div>
         </div>
-
-        <!--<div name="body-left" style="width: 80%;">
-            <div name="body-turn">
-                <div class="layui-carousel" id="test1">
-                    <div carousel-item>
-                        <div>条目1</div>
-                        <div>条目2</div>
-                        <div>条目3</div>
-                        <div>条目4</div>
-                        <div>条目5</div>
-                    </div>
-                </div>
-            </div>
-            <div name="book-type-list">
-
-            </div>
-        </div>
-        <div name="body-right"style="background-color: #0C0C0C;width: 20%;height: 100px;float: right">
-
-        </div>-->
     </div>
     <div name="foot">
 
@@ -267,5 +235,14 @@
             //,anim: 'updown' //切换动画方式
         });
     });
+    $(document).ready(function () {
+        $.ajax({
+            type:"post",
+            url:"getsession",
+            success:function (res) {
+                var user=eval(res);
+            }
+        })
+    })
 </script>
 </html>

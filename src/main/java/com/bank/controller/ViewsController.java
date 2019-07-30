@@ -13,4 +13,11 @@ public class ViewsController {
     public String firstPage(){
         return "firstPage";
     }
+    @RequestMapping("search")
+    public String searchP(){return "searchPage";}
+    /*@RequestMapping("con")
+    public String con(){
+
+        return "bookcontent";
+    }*/
 }

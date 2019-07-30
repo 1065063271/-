@@ -10,6 +10,12 @@ import org.springframework.stereotype.Service;
 public class readerServiceImpl implements readerService {
     @Autowired
     ReaderMapper readerMapper;
+
+    @Override
+    public Integer selid(String readername) {
+        return readerMapper.selid(readername);
+    }
+
     @Override
     public boolean readerLogin(Reader reader) {
         if (readerMapper.readerLogin(reader).size()==1){

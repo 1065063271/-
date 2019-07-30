@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="cn" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--jq-->
+    <script src="../../js/jquery.min.js"></script>
+    <!--bootstrap-->
+    <script src="../../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../../bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <!--layui-->
+    <link rel="stylesheet" href="../../layui/css/layui.css">
+    <!--<script src="../../layui/layui.all.js"></script>-->
+    <script src="../../layui/layui.js"></script>
+    <!--字体-->
+    <script type="text/javascript" src="https://cdn.repository.webfont.com/wwwroot/js/wf/youziku.api.min.js"></script>
+    <script type="text/javascript">
+        $webfont.load("#body", "0564995dbaa94cd89d1dfa50e278a9a7", "jdlibianjian");
+        $webfont.draw();
+    </script>
+
+</head>
+<body id="body" name="body">
+<!--
+内容
+-->
+<!--
+主体框
+-->
+<div class="layui-row">
+    <div class="layui-col-xs12">
+        <!--
+        导航框
+        -->
+        <nav class="navbar navbar-default" role="navigation" style="margin-bottom: 5px">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#" id="headtitle" style="font-size: 25px">图书管理系统</a>
+                </div>
+                <!--
+                搜索框
+                -->
+                <ul class="nav navbar-nav navbar-right">
+                    <form action="/selbook" class="navbar-form navbar-left" role="search" style="margin-right: 100px">
+                        <div class="form-group">
+                            <input name="key" type="text" class="form-control" placeholder="输入书名、作者"/>
+                        </div>
+                        <input type="submit" class="btn btn-default" value="搜索"/>
+                    </form>
+                    <!--
+                    个人中心
+                    -->
+                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> 个人中心</a></li>
+                    <li><a href="/WEB-INF/templates/loginIndex.html"><span class="glyphicon glyphicon-log-in"></span> 退出</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <!--
+    中大框
+    -->
+    <div class="layui-col-xs12 layui-col-md8 layui-col-md-offset2"
+         style="margin-top: 40px;background-color: #f8f8c8;    box-shadow: 5px 5px 2px 0 rgba(0,0,0,.05);">
+        <fieldset class="layui-elem-field" style="border-color:#777777;">
+            <legend class="" style="border-color:#777777" id="bookname" th:text="${cont.bookname}"></legend>
+            <div class="layui-field-box" style="margin-top: -20px">
+                <div class="layui-row">
+                    <div class="layui-col-xs4 layui-col-md2 layui-card"
+                         style="margin-top: 20px;margin-left: 20px;background-color: #f8f5ab;    box-shadow: 5px 5px 2px 0 rgba(0,0,0,.05);">
+                        <img style="width: 100%;" src="/img/timg.jpg" class="">
+                        <div id="test1"></div>
+                        <input type="hidden" name="bookrate" id="bookrate" th:value="${cont.bookrate}"/>
+                        <button class="layui-btn layui-btn-danger layui-btn-sm" onclick="flower()">送鲜花</button>
+                        <button class="layui-btn layui-btn-warm layui-btn-sm" style="margin-left: 5px"
+                                data-toggle="modal"
+                                data-target="#magicalcoderMyModal-magical-coder-auto-id-1564231079733">写评论
+                        </button>
+                    </div>
+                    <!--
+                    书籍简介
+                    -->
+                    <div class="layui-col-xs4 layui-col-md8 layui-col-md-offset1 layui-card"
+                         style="margin-top: 20px;background-color: #f8f5ab;    box-shadow: 5px 5px 2px 0 rgba(0,0,0,.05);">
+                        <fieldset class="layui-elem-field" style="border-color:#777777">
+                            <legend class="" style="border-color:#777777" id="simple">简介</legend>
+                            <div class="layui-field-box" style="margin-top: -40px">
+                            </div>
+                            <p>
+                                作者：<span th:text="${cont.author}"></span>
+                            </p>
+                            <p>
+                                概述：<span th:text="${cont.introduction}"></span>
+                            </p>
+                        </fieldset>
+                    </div>
+                    <!--
+                    用户评论区
+                    -->
+                    <div class="layui-col-xs10 layui-col-md-offset1 layui-card"
+                         style="background-color: #f8f5ab;margin-top: 20px;    box-shadow: 5px 5px 2px 0 rgba(0,0,0,.05);">
+                        <fieldset class="layui-elem-field" style="border-color:#777777">
+                            <legend class="" style="border-color:#777777" id="con">评论</legend>
+                            <div class="layui-field-box" style="margin-top: -20px" id="com">
+                                <!--
+                                单个用户评论，列表流加载or分页显示
+                                -->
+                                <ul id="biuuu_city_list"></ul>
+                                <div id="demo20"></div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <!--
+        页脚
+        -->
+    </div>
+    <div class="layui-col-xs12"></div>
+</div>
+<!--
+评论弹出窗
+-->
+<div class="modal fade" id="magicalcoderMyModal-magical-coder-auto-id-1564231079733"
+     tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="background-color: #f8f5ab;">
+            <div class="modal-header" style="border-bottom: 1px solid #777777;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="background: #777777">
+                    <span aria-hidden="true" style="background: #777777">×</span></button>
+                <h4 class="modal-title" id="myModalLabel">您的评论</h4>
+            </div>
+            <div class="modal-body">
+                <textarea id="comment" class="form-control" rows="3" mc-ace="~"></textarea>
+            </div>
+            <div class="modal-footer" style="border-top: 1px solid #777777;">
+                <input name="bookid" type="hidden" id="bookid" th:value="${cont.bookid}"/>
+                <button type="button" class="btn btn-primary" style="background-color: #fec422;border-color:#fec422;"
+                        onclick="con()">提交
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    /*
+    * 页面加载的时候通过session获取用户名
+    * */
+    var user = "";
+    var readerid=1;
+    $(document).ready(function () {
+        $.ajax({
+            type: "post",
+            url: "getsession",
+            success: function (res) {
+                user = eval(res);
+            }
+        })
+        $.ajax({
+            type:"post",
+            url:"getreaderid",
+            success:function (res) {
+                alert(res);
+                readerid=eval(res);
+            }
+        })
+    })
+    /*
+    * 获取书籍id、用户id
+    */
+    var bookid = $("#bookid");
+    /*
+    评分系统
+    */
+    layui.use('rate', function () {
+        var rate = layui.rate;
+        var bookrate=$("#bookrate").val();
+        //渲染
+        var ins1 = rate.render({
+            elem: '#test1',  //绑定元素
+            value: bookrate,
+            choose: function (value) {
+                if (value >= 0) {
+                    var bookid = $("#bookid").val();
+                    $.ajax({
+                        type: "post",
+                        url: "rate",
+                        data: "rate=" + value + "&bookid=" + bookid + "&readerid=" + readerid,
+                        success: function (res) {
+                            res=eval(res);
+                            if (res == "success")
+                                layer.alert("感谢评价");
+                            else
+                                layer.alert("评价失败");
+                        },
+                        error: function () {
+                            layer.alert("系统错误");
+                        }
+                    })
+                }
+            }
+        });
+    });
+
+    /*
+    点击提交评论
+    */
+    function con() {
+        var comment = $("#comment").val();
+        var bookid = $("#bookid").val();
+        $.ajax({
+            type: "post",
+            url: "newcom",
+            data: "bookid=" + bookid + "&readername=" + user + "&comment=" + comment,
+            success: function (res) {
+                res = eval(res);
+                if (res == "success") {
+                    layer.alert("成功评论");
+                    setTimeout(function () {
+                        layer.closeAll();
+                        window.location.reload(true);
+                    }, 1000);
+                } else
+                    layer.alert("评论失败");
+            },
+            error: function () {
+                layer.alert("系统错误");
+            }
+        })
+    }
+    function flower() {
+        /*
+        * 送鲜花
+        * */
+    }
+
+</script>
+<script th:inline="javascript">//分页显示
+    window.onload=function () {
+        var bookid=$("#bookid").val();
+        $.ajax({
+            type:"post",
+            url:"allcom",
+            data:"bookid="+bookid,
+            success:function (res) {
+                var list=eval(res);
+                layui.use(['laypage', 'layer'], function () {
+                    var laypage = layui.laypage
+                        , layer = layui.layer;
+                    //将一段数组分页展示
+                    //测试数据
+                    var data=list;
+                    //调用分页
+                    laypage.render({
+                        elem: 'demo20'
+                        , count: data.length
+                        , theme: '#fec422'
+                        , limit: 3
+                        , limits: false
+                        , layout: ['prev', 'page', 'next']
+                        , jump: function (obj) {
+                            //模拟渲染
+                            document.getElementById('biuuu_city_list').innerHTML = function () {
+                                var arr = []
+                                    , thisData = data.concat().splice(obj.curr * obj.limit - obj.limit, obj.limit);
+                                layui.each(thisData, function (index, item) {
+                                    arr.push('<div class="layui-col-xs10 layui-col-md-offset1">\n' +
+                                        '                                    <fieldset class="layui-elem-field" style="border-color:#777777">\n' +
+                                        '                                        <legend class="" style="border-color:#777777" id="con">'+item.readername+'</legend>\n' +
+                                        '                                        <div class="layui-field-box" style="margin-top: -20px">\n' +
+                                        '                                            '+item.comment+'\n' +
+                                        '                                        </div>\n' +
+                                        '                                    </fieldset>\n' +
+                                        '                                </div>');
+                                });
+                                return arr.join('');
+                            }();
+                        }
+                    });
+
+                });
+            },
+            error:function () {
+                layer.alert("系统错误");
+            }
+        })
+    }
+
+</script>
+<script>
+    $(document).ready(function () {
+        /*此处查询本书所有品论*/
+    })
+</script>
+</html>
