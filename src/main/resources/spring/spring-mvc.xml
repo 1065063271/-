@@ -38,6 +38,7 @@
         <property name="suffix" value=".html" />
     </bean>
     <!--解析json-->
+    <!--请求过来的json解析，返回的时候将responsebody的数据转为json-->
     <mvc:annotation-driven>
         <mvc:message-converters register-defaults="false">
             <bean id="fastJsonHttpMessageConverter" class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
@@ -50,6 +51,7 @@
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
+    <!--配置thymeleaf模板引擎-->
     <bean id="templateResolver"
           class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">
         <property name="prefix" value="/WEB-INF/templates/"/>

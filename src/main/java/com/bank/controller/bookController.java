@@ -15,7 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -128,5 +127,36 @@ public class bookController {
     @ResponseBody/*在页面初加载是查询*/
     public List<CommentP> allcom(Integer bookid){
         return bookService.allcom(bookid);
+    }
+    /*****
+                *****
+            鲜花模块
+        *****
+                    *****/
+    /*返回书籍鲜花数*/
+    @RequestMapping("bflowernum")
+    @ResponseBody
+    public Integer bflowernum(Integer bookid){
+        return bookService.bselflower(bookid);
+    }
+    /*返回个人鲜花数*/
+    @RequestMapping("hflowernum")
+    @ResponseBody
+    public Integer hflowernum(Integer readerid){
+        return bookService.hselflower(readerid);
+    }
+    /*赠送鲜花*/
+    @RequestMapping("flowersend")
+    @ResponseBody
+    public String flowersend(Flower flower){
+        if (bookService.iszero(flower.getReaderid())){//判断是否为0，是否可以送
+            if (bookService.flowersend(flower)){//开始赠送
+                return "success";
+            }
+            else
+                return "fail";
+        }
+        else
+            return "fail";
     }
 }

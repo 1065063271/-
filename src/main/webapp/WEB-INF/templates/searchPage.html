@@ -11,11 +11,17 @@
     <!--layui-->
     <link rel="stylesheet" href="../../layui/css/layui.css">
     <script src="../../layui/layui.all.js"></script>
+    <style>
+        /*改变当鼠标悬停的变色*/
+        .layui-table tbody tr:hover, .layui-table thead tr{
+            background-color: rgba(254, 197, 40, 0.27);
+        }
+    </style>
 </head>
 
 <body style="text-align: center">
 <div class="layui-row" style="text-align: center">
-    <nav class="navbar navbar-default" role="navigation" style="margin-bottom: 5px">
+    <nav class="navbar navbar-default" role="navigation" style="margin-bottom: 5px;background-color: #f8f8c8;">
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" href="#" id="headtitle" style="font-size: 25px">图书管理系统</a>
@@ -35,9 +41,9 @@
     </nav>
     <div class="layui-col-xs12" mc-ace="~"
          style="width: 1000px;  margin: auto;position: absolute;top: 60px; left: 0; bottom: 0; right: 0;">
-        <table class="layui-table" id="content" name="content">
-            <thead>
-            <tr>
+        <table class="layui-table" id="content" name="content" style="background-color: #f8f8c8">
+            <thead style="background-color: #f8f8c8">
+            <tr style="background-color: rgba(254, 197, 40, 0.27)">
                 <th class="layui-col-xs2">书籍</th>
                 <th class="layui-col-xs7">简介</th>
                 <th class="layui-col-xs3">操作</th>
@@ -117,6 +123,25 @@
                     //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
                     next(lis.join(''), page < jsontest[2]);
                 });
+            }
+        });
+    });
+    layui.use(['util', 'laydate', 'layer'], function(){
+        var util = layui.util
+            ,laydate = layui.laydate
+            ,layer = layui.layer;
+        //固定块
+        util.fixbar({
+            bar1: false
+            ,bar2: true
+            ,css: {right: 50, bottom: 100}
+            ,bgcolor: '#393D49'
+            ,click: function(type){
+                if(type === 'bar1'){
+                    layer.msg('icon是可以随便换的');
+                } else if(type === 'bar2') {
+                    layer.msg('wdnmd你点这个干嘛嗷');
+                }
             }
         });
     });

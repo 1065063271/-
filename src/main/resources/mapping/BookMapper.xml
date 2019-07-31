@@ -67,4 +67,22 @@
   <select id="allcom" parameterType="int" resultType="com.bank.pojo.Comment">
     select comment,readername from comment;
   </select>
+  <!--查询书籍鲜花数-->
+  <select id="bselflower" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select flowernum from booktable where bookid=#{bookid};
+  </select>
+  <!--查询个人鲜花数-->
+  <select id="hselflower" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select flowernum from readertable where readerid=#{readerid};
+  </select>
+  <!--判断是鲜花数是否为0-->
+  <select id="iszero" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select flowernum from readertable;
+  </select>
+  <!--读者赠送鲜花给书籍-->
+  <insert id="flowersend" parameterType="com.bank.pojo.Flower">
+    insert into flower (bookid, readerid) values (#{bookid},#{readerid});
+    update readertable set readertable.flowernum=readertable.flowernum-1 where readerid=#{readerid};
+    update booktable set booktable.flowernum=booktable.flowernum+1 where bookid=#{bookid};
+  </insert>
 </mapper>

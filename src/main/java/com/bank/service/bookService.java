@@ -28,4 +28,12 @@ public interface bookService {
     boolean newcom(Comment comment);
     /*返回所有书籍评论*/
     List<CommentP> allcom(Integer bookid);
+    /*查询书籍鲜花数*/
+    Integer bselflower(Integer bookid);
+    /*查询读者鲜花数*/
+    Integer hselflower(Integer readerid);
+    /*判断读者鲜花是否为零*/
+    boolean iszero(Integer readerid);
+    /*读者赠送鲜花给书籍*/
+    boolean flowersend(Flower flower);
 }

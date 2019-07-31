@@ -28,6 +28,13 @@ public interface BookMapper {
     boolean newcom(Comment comment);
     /*返回该书所有评论*/
     List<CommentP> allcom(Integer bookid);
-
+    /*查询书籍鲜花数*/
+    Integer bselflower(Integer bookid);
+    /*查询读者鲜花数*/
+    Integer hselflower(Integer readerid);
+    /*判断读者鲜花数是否为0*/
+    Integer iszero(Integer readerid);
+    /*读者赠送鲜花给书籍*/
+    boolean flowersend(Flower flower);
 
 }

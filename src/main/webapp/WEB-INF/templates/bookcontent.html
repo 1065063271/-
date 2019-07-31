@@ -2,7 +2,7 @@
 <html lang="cn" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>书籍详情</title>
     <!--jq-->
     <script src="../../js/jquery.min.js"></script>
     <!--bootstrap-->
@@ -191,12 +191,12 @@
                         success: function (res) {
                             res=eval(res);
                             if (res == "success")
-                                layer.alert("感谢评价");
+                                layer.msg("感谢评价");
                             else
-                                layer.alert("评价失败");
+                                layer.msg("评价失败");
                         },
                         error: function () {
-                            layer.alert("系统错误");
+                            layer.msg("系统错误");
                         }
                     })
                 }
@@ -217,16 +217,16 @@
             success: function (res) {
                 res = eval(res);
                 if (res == "success") {
-                    layer.alert("成功评论");
+                    layer.msg("成功评论");
                     setTimeout(function () {
                         layer.closeAll();
                         window.location.reload(true);
                     }, 1000);
                 } else
-                    layer.alert("评论失败");
+                    layer.msg("评论失败");
             },
             error: function () {
-                layer.alert("系统错误");
+                layer.msg("系统错误");
             }
         })
     }
@@ -283,7 +283,7 @@
                 });
             },
             error:function () {
-                layer.alert("系统错误");
+                layer.msg("系统错误");
             }
         })
     }

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="cn" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>个人中心</title>
+    <!--jq-->
+    <script src="../../js/jquery.min.js"></script>
+    <!--bootstrap-->
+    <script src="../../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../../bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <!--layui-->
+    <link rel="stylesheet" href="../../layui/css/layui.css">
+    <!--<script src="../../layui/layui.all.js"></script>-->
+    <script src="../../layui/layui.js"></script>
+
+</head>
+<body id="body" name="body">
+<!--
+内容
+-->
+<!--
+主体框
+-->
+<div class="layui-row">
+    <div class="layui-col-xs12">
+        <!--
+        导航框
+        -->
+        <nav class="navbar navbar-default" role="navigation" style="margin-bottom: 5px;background-color: #f8f8c8;">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#" id="headtitle" style="font-size: 25px">图书管理系统</a>
+                </div>
+                <!--
+                搜索框
+                -->
+                <ul class="nav navbar-nav navbar-right">
+                    <form action="/selbook" class="navbar-form navbar-left" role="search" style="margin-right: 100px">
+                        <div class="form-group">
+                            <input name="key" type="text" class="form-control" placeholder="输入书名、作者"/>
+                        </div>
+                        <input type="submit" class="btn btn-default" value="搜索"/>
+                    </form>
+                    <!--
+                    个人中心
+                    -->
+                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> 个人中心</a></li>
+                    <li><a href="/WEB-INF/templates/loginIndex.html"><span class="glyphicon glyphicon-log-in"></span> 退出</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <!--
+    中大框
+    -->
+    <div class="layui-col-xs12 layui-col-md8 layui-col-md-offset2"
+         style="margin-top: 40px;background-color: #f8f8c8;    box-shadow: 5px 5px 2px 0 rgba(0,0,0,.05);">
+        <fieldset class="layui-elem-field" style="border-color:#777777;">
+            <legend class="" style="border-color:#777777" id="bookname" >读者用户名</legend>
+            <div class="layui-field-box" style="margin-top: -20px">
+                <div class="layui-row">
+                    <div class="layui-col-xs4 layui-col-md2 layui-card"
+                         style="margin-top: 20px;margin-left: 20px;background-color: #f8f5ab;    box-shadow: 5px 5px 2px 0 rgba(0,0,0,.05);">
+                        <img style="width: 100%;" src="/img/timg.jpg" class="">
+                        <button class="layui-btn layui-btn-danger layui-btn-sm" onclick="flower()">送鲜花</button>
+                        <button class="layui-btn layui-btn-warm layui-btn-sm" style="margin-left: 5px"
+                                data-toggle="modal"
+                                data-target="#magicalcoderMyModal-magical-coder-auto-id-1564231079733">写评论
+                        </button>
+                    </div>
+                    <!--
+                    书籍简介
+                    -->
+                    <div class="layui-col-xs4 layui-col-md8 layui-col-md-offset1 layui-card"
+                         style="margin-top: 20px;background-color: #f8f5ab;    box-shadow: 5px 5px 2px 0 rgba(0,0,0,.05);">
+                        <fieldset class="layui-elem-field" style="border-color:#777777">
+                            <legend class="" style="border-color:#777777" id="simple">个人简介</legend>
+                            <div class="layui-field-box" style="margin-top: -40px">
+                            </div>
+                            <p>
+                                作者：
+                            </p>
+                            <p>
+                                概述：
+                            </p>
+                        </fieldset>
+                    </div>
+                    <!--
+                    用户评论区
+                    -->
+                    <div class="layui-col-xs10 layui-col-md-offset1 layui-card"
+                         style="background-color: #f8f5ab;margin-top: 20px;    box-shadow: 5px 5px 2px 0 rgba(0,0,0,.05);">
+                        <fieldset class="layui-elem-field" style="border-color:#777777">
+                            <legend class="" style="border-color:#777777" id="con">个人信息</legend>
+                            <div class="layui-field-box" style="margin-top: -20px" id="com">
+                                <!--
+                                读者信息内容
+                                -->
+                                <p>
+                                    性别：
+                                </p>
+                                <hr style="height:1px;width: 100%;background-color: #777777"/>
+                                <p style="text-indent: 3em;">
+                                    男
+                                </p>
+                                <hr style="height:1px;width: 95%;margin-left:5%;background-color: #777777"/>
+                                <p>
+                                    签名：
+                                </p>
+                                <hr style="height:1px;width: 100%;background-color: #777777"/>
+                                <p style="text-indent: 3em;">
+                                    无
+                                </p>
+                                <hr style="height:1px;width: 95%;margin-left:5%;background-color: #777777"/>
+                                <p>
+                                    感兴趣的图书类型：
+                                </p>
+                                <hr style="height:1px;width: 100%;background-color: #777777"/>
+                                <p style="text-indent: 3em;">
+                                    <span>文学</span>
+                                    <span>历史</span>
+                                    <span>哲学</span>
+                                </p>
+                                <hr style="height:1px;width: 95%;margin-left:5%;background-color: #777777"/>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <!--
+        页脚
+        -->
+    </div>
+    <div class="layui-col-xs12"></div>
+</div>
+
+
+</body>
+<script>
+    /*
+    * 页面加载的时候通过session获取用户名
+    * */
+    var user = "";
+    var readerid=1;
+    $(document).ready(function () {
+        $.ajax({
+            type: "post",
+            url: "getsession",
+            success: function (res) {
+                user = eval(res);
+            }
+        })
+        $.ajax({
+            type:"post",
+            url:"getreaderid",
+            success:function (res) {
+                alert(res);
+                readerid=eval(res);
+            }
+        })
+    })
+    /*
+    * 获取书籍id、用户id
+    */
+    var bookid = $("#bookid");
+
+</script>
+
+<script>
+    $(document).ready(function () {
+        /*此处查询本书所有品论*/
+    })
+</script>
+</html>

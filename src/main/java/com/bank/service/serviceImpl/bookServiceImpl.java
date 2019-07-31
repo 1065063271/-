@@ -97,4 +97,30 @@ public class bookServiceImpl implements bookService {
     public List<CommentP> allcom(Integer bookid) {
         return bookMapper.allcom(bookid);
     }
+
+    @Override
+    public Integer bselflower(Integer bookid) {
+        return bookMapper.bselflower(bookid);
+    }
+
+    @Override
+    public Integer hselflower(Integer readerid) {
+        return bookMapper.hselflower(readerid);
+    }
+
+    @Override
+    public boolean iszero(Integer readerid) {
+        if (bookMapper.iszero(readerid)==0)
+            return true;
+        else
+            return false;
+    }
+
+    @Override
+    public boolean flowersend(Flower flower) {
+        if (bookMapper.flowersend(flower))
+            return true;
+        else
+            return false;
+    }
 }
