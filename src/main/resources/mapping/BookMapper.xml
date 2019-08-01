@@ -77,7 +77,7 @@
   </select>
   <!--判断是鲜花数是否为0-->
   <select id="iszero" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-    select flowernum from readertable;
+    select flowernum from readertable where readerid=#{readerid};
   </select>
   <!--读者赠送鲜花给书籍-->
   <insert id="flowersend" parameterType="com.bank.pojo.Flower">

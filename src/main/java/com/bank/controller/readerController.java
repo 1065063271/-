@@ -42,6 +42,7 @@ public class readerController {
         model.addAttribute("F",bookService.Fbook());
         if (readerService.readerLogin(reader)== true) {
             httpSession.setAttribute("user",reader.getReadername());//获取读者name存入session
+            System.out.println(reader.getReadername()+"这是用户名");
             httpSession.setAttribute("readerid",readerService.selid(reader.getReadername()));//以读者name获取读者id，存入session
             System.out.println("zheshi "+readerService.selid(reader.getReadername()));
             return "headPage";

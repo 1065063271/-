@@ -149,7 +149,7 @@ public class bookController {
     @RequestMapping("flowersend")
     @ResponseBody
     public String flowersend(Flower flower){
-        if (bookService.iszero(flower.getReaderid())){//判断是否为0，是否可以送
+        if (!bookService.iszero(flower.getReaderid())){//判断是否为0，是否可以送
             if (bookService.flowersend(flower)){//开始赠送
                 return "success";
             }

@@ -87,6 +87,9 @@
                             <div class="layui-field-box" style="margin-top: -40px">
                             </div>
                             <p>
+                                <object src="/img/flower.svg"></object>
+                            </p>
+                            <p>
                                 作者：<span th:text="${cont.author}"></span>
                             </p>
                             <p>
@@ -149,7 +152,7 @@
     * 页面加载的时候通过session获取用户名
     * */
     var user = "";
-    var readerid=1;
+    var readerid=0;
     $(document).ready(function () {
         $.ajax({
             type: "post",
@@ -162,7 +165,6 @@
             type:"post",
             url:"getreaderid",
             success:function (res) {
-                alert(res);
                 readerid=eval(res);
             }
         })
@@ -234,6 +236,24 @@
         /*
         * 送鲜花
         * */
+        var bookid = $("#bookid").val();
+        $.ajax({
+            type:"post",
+            url:"flowersend",
+            data:"bookid="+bookid+"&readerid="+readerid,
+            success:function (res) {
+                res=eval(res);
+                if (res=="success"){
+                    layer.msg("赠送成功");
+                }
+                else {
+                    layer.msg("赠送失败");
+                }
+            },
+            error:function () {
+                layer.alert("系统错误");
+            }
+        })
     }
 
 </script>
