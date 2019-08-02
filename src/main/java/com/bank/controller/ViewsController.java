@@ -35,4 +35,8 @@ public class ViewsController {
     public String photo(){
         return "phototest";
     }
+    @RequestMapping("admin")
+    public String admin(){
+        return "adminPage";
+    }
 }
