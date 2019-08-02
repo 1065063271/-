@@ -13,5 +13,10 @@
     <result column="address" property="address" jdbcType="VARCHAR" />
     <result column="note" property="note" jdbcType="VARCHAR" />
   </resultMap>
-
+  <insert id="photoupload">
+    insert into photo (photoadd) values (#{photoadd});
+  </insert>
+  <select id="good" parameterType="java.lang.Integer" resultType="java.lang.String">
+    select photoadd from photo where photoid=#{photoid};
+  </select>
 </mapper>

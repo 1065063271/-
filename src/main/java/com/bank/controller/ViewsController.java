@@ -1,6 +1,7 @@
 package com.bank.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -29,5 +30,9 @@ public class ViewsController {
     @RequestMapping("person")
     public String personPage(){
         return "readerperson";
+    }
+    @RequestMapping("photo")
+    public String photo(){
+        return "phototest";
     }
 }
