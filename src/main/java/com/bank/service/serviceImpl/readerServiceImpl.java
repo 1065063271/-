@@ -6,6 +6,8 @@ import com.bank.service.readerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class readerServiceImpl implements readerService {
     @Autowired
@@ -36,5 +38,10 @@ public class readerServiceImpl implements readerService {
         }
         else
             return false;
+    }
+
+    @Override
+    public List<Reader> allreader() {
+        return readerMapper.allreader();
     }
 }

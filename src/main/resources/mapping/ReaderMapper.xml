@@ -27,4 +27,10 @@
     insert into readertable (readername,password,identy,readersex,tel,effecttime,ineffecttime)
     values (#{readername},#{password},#{identy},#{readersex},#{tel},#{effecttime},#{ineffecttime})
   </insert>
+
+
+  <!--管理员部分-->
+  <select id="allreader" resultType="com.bank.pojo.Reader">
+    select readerid,readername,readersex,tel,booknum,flowernum from readertable
+  </select>
 </mapper>

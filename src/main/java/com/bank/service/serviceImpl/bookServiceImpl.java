@@ -123,4 +123,9 @@ public class bookServiceImpl implements bookService {
         else
             return false;
     }
+
+    @Override
+    public List<Book> allbook() {
+        return bookMapper.allbook();
+    }
 }

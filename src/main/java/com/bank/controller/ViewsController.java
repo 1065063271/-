@@ -35,8 +35,16 @@ public class ViewsController {
     public String photo(){
         return "phototest";
     }
-    @RequestMapping("admin")
-    public String admin(){
-        return "adminPage";
+    @RequestMapping("adminIndex")
+    public String adminIndex(){
+        return "adminPageIndex";
+    }
+    @RequestMapping("adminReader")
+    public String adminReader(){
+        return "adminPageReader";
+    }
+    @RequestMapping("adminBook")
+    public String adminBook(){
+        return "adminPageBook";
     }
 }

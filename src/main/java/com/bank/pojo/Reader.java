@@ -71,6 +71,15 @@ public class Reader implements Serializable {
     private String password;
 
     private String identy;
+    private Integer flowernum;
+
+    public Integer getFlowernum() {
+        return flowernum;
+    }
+
+    public void setFlowernum(Integer flowernum) {
+        this.flowernum = flowernum;
+    }
 
     public String getIdenty() {
         return identy;

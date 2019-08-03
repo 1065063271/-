@@ -85,4 +85,9 @@
     update readertable set readertable.flowernum=readertable.flowernum-1 where readerid=#{readerid};
     update booktable set booktable.flowernum=booktable.flowernum+1 where bookid=#{bookid};
   </insert>
+
+  <!--管理员部分-->
+  <select id="allbook" resultType="com.bank.pojo.Book">
+    select * from booktable
+  </select>
 </mapper>

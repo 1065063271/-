@@ -36,5 +36,8 @@ public interface BookMapper {
     Integer iszero(Integer readerid);
     /*读者赠送鲜花给书籍*/
     boolean flowersend(Flower flower);
-
+    /*
+    * 管理员部分
+    * */
+    List<Book>allbook();
 }
