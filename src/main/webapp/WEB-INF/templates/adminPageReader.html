@@ -75,8 +75,21 @@
                 </script>
 
                 <script type="text/html" id="barDemo">
-                    <a class="layui-btn layui-btn-xs" lay-event="band">封禁</a>
+                    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="submit">提交</a>
                     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+                </script>
+                <script type="text/html" id="status">
+                     {{#  if(d.status === 1){ }}
+                      <span class="layui-btn layui-btn layui-btn-xs" lay-event="band">正常</span>
+                     {{#  } else { }}
+                      <span class="layui-btn layui-btn-primary layui-btn-xs" lay-event="unband">已封禁</span>
+                      {{#  } }}
+                </script>
+                <script type="text/html" id="status1">
+                    <span class="layui-btn layui-btn layui-btn-xs" lay-event="band">正常</span>
+                </script>
+                <script type="text/html" id="status2">
+                    <span class="layui-btn layui-btn-primary layui-btn-xs" lay-event="unband">已封禁</span>
                 </script>
             </div>
         </div>
@@ -90,7 +103,6 @@
 
         //监听导航点击
         element.on('nav(demo)', function(elem){
-            //console.log(elem)
         });
     });
 </script>
@@ -101,13 +113,14 @@
 
         //监听导航点击
         element.on('nav(demo)', function (elem) {
-            console.log(elem);
             //console.log(elem)
             /*layer.msg(elem.text());*/
         });
     });
 </script>
 <script  th:inline="none">
+    var list;
+    var total;
     layui.use('table', function(){
         var table = layui.table;
         table.render({
@@ -116,8 +129,8 @@
             ,toolbar: '#toolbarDemo'
             ,title: '用户数据表'
             ,parseData:function (res) {
-                var list=eval(res).list;
-                var total=eval(res).total;
+                list=eval(res).list;
+                total=eval(res).total;
                 return{
                     "code":0,
                     "msg":"",
@@ -128,18 +141,13 @@
             ,cols: [[
                 {type: 'checkbox', fixed: 'left'}
                 ,{field:'readerid', title:'读者ID', width:80, fixed: 'left', unresize: true, sort: true}
-                ,{field:'readername', title:'读者用户名', width:120, edit: 'text'}
-                /*,{field:'email', title:'邮箱', width:150, edit: 'text', templet: function(res){
-                        return '<em>'+ res.email +'</em>'
-                    }}*/
+                ,{field:'readername', title:'读者用户名', width:120, edit: 'text',sort:true}
                 ,{field:'readersex', title:'性别', width:80, edit: 'text', sort: true}
                 ,{field:'tel', title:'电话',edit:'text', width:150}
-                ,{field:'booknum', title:'借阅次数',edit:'text',width:100}
-                /*,{field:'experience', title:'积分', width:80, sort: true}
-                ,{field:'ip', title:'IP', width:120}
-                ,{field:'logins', title:'登入次数', width:100, sort: true}*/
-                ,{field:'flowernum', title:'持有鲜花',edit:'text', width:120}
-                ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
+                ,{field:'booknum', title:'借阅次数',edit:'text',width:100,sort:true}
+                ,{field:'flowernum', title:'持有鲜花',edit:'text', width:80,sort:true}
+                ,{field:'status',title:'封禁状态',toolbar:'#status',width:100}
+                ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:130}
             ]]
             ,page: true
         });
@@ -150,6 +158,7 @@
             switch(obj.event){
                 case 'getCheckData':
                     var data = checkStatus.data;
+                    console.log(data);
                     layer.alert(JSON.stringify(data));
                     break;
                 case 'getCheckLength':
@@ -165,7 +174,7 @@
         //监听行工具事件
         table.on('tool(test)', function(obj){
             var data = obj.data;
-            //console.log(obj)
+            console.log(data);
             if(obj.event === 'del'){//获取用户id并将之删除
                 layer.confirm('真的删除用户" '+data.readerid+' "么', function(index){
                     obj.del();
@@ -173,16 +182,71 @@
                         type:"post",
                         url:"delreader",
                         dara:"readerid="+data.readerid
-                    })
+                    });
                     layer.close(index);
                 });
-            } else if(obj.event === 'band'){//封禁用户
-                layer.confirm('确定封禁用户" '+data.readerid+' "么',function (index) {
-
+            } else if(obj.event === 'band'||obj.event === 'unband'){//封禁用户
+                var x=this;
+                layer.confirm('确定要改变读者" '+data.readerid+' "当前封禁状态么',function (index) {
+                    var n;
+                    /*console.log(layui.table.cache.test);
+                    var table=layui.table.cache.test;
+                    alert(table[0].status);*/
+                    var table =layui.table.cache.test;
+                    for (var i=0;i<table.length;i++){
+                        if (table[i].readerid===data.readerid){
+                            if (table[i].status===1){
+                                n=table[i].status;
+                                table[i].status=0;
+                                $(x).text("已封禁");
+                                $(x).attr("class","layui-btn layui-btn-primary layui-btn-xs");
+                            }
+                            else {
+                                n=table[i].status;
+                                table[i].status=1;
+                                $(x).text("正常");
+                                $(x).attr("class","layui-btn layui-btn layui-btn-xs");
+                            }
+                        }
+                    }
+                    /*var n;
+                    console.log(data.status);
+                    if (data.status===1){
+                        n=data.status;
+                        $(x).text("已封禁");
+                        $(x).attr("class","layui-btn layui-btn-primary layui-btn-xs");
+                        obj.update({
+                            status:'0'
+                        });
+                    }
+                    else if (data.status===0){
+                        n=data.status;
+                        $(x).text("正常");
+                        $(x).attr("class","layui-btn layui-btn layui-btn-xs");
+                        obj.update({
+                            status:'1'
+                        });
+                    }
+                    console.log(data);*/
+                    console.log(data);
+                    $.ajax({
+                        type:"post",
+                        url:"changeStatus",
+                        data:"readerid="+data.readerid+"&status="+n,
+                        success:function (res) {
+                            /*window.location.reload(true);*/
+                            layer.msg("成功");
+                        },
+                        error:function () {
+                          layer.msg("系统错误，请稍后再试");
+                        }
+                    })
                 })
             }
+
         });
-        table.on('edit(test)',function (obj) {//监听单元格修改时间
+        table.on('edit(test)',function (obj) {//监听单元格修改事件
+
             $.ajax({
                 type:"post",
                 url:"edit",

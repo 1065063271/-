@@ -30,7 +30,12 @@
 
 
   <!--管理员部分-->
+  <!--显示所有读者信息-->
   <select id="allreader" resultType="com.bank.pojo.Reader">
-    select readerid,readername,readersex,tel,booknum,flowernum from readertable
+    select readerid,readername,readersex,tel,booknum,flowernum,status from readertable
   </select>
+  <!--更改读者封禁状态-->
+  <update id="changestatus" parameterType="java.lang.Integer">
+    update readertable set status=#{status} where readerid=#{readerid};
+  </update>
 </mapper>

@@ -36,4 +36,16 @@ public class adminController {
         PageInfo<Book> bookPageInfo=new PageInfo<>(bookList);
         return bookPageInfo;
     }
+    @RequestMapping("updateRmsg")
+    public String updateRmsg(Reader reader){
+        return null;
+    }
+    @RequestMapping("changeStatus")
+    @ResponseBody
+    public String changeStatus(@RequestParam("readerid")Integer readerid,@RequestParam("status")Integer status){
+        if (readerService.changestatus(readerid,status)==true){
+            return "success";
+        }
+        else return "fail";
+    }
 }

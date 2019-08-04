@@ -1,6 +1,7 @@
 package com.bank.dao;
 
 import com.bank.pojo.Reader;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -19,4 +20,6 @@ public interface ReaderMapper {
     * */
     /*返回所有用户信息*/
     List<Reader>allreader();
+    /*更改当前用户的封禁状态*/
+    boolean changestatus(@Param("readerid")Integer readerid,@Param("status")Integer status);
 }

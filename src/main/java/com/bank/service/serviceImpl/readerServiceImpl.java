@@ -44,4 +44,16 @@ public class readerServiceImpl implements readerService {
     public List<Reader> allreader() {
         return readerMapper.allreader();
     }
+
+    @Override
+    public boolean changestatus(Integer readerid, Integer status) {
+        if (status==1){
+            return readerMapper.changestatus(readerid,0);
+        }
+        else if(status==0) {
+            return readerMapper.changestatus(readerid,1);
+        }
+        else
+            return false;
+    }
 }

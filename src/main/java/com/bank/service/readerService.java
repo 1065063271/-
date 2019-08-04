@@ -18,4 +18,6 @@ public interface readerService {
     * */
     /*返回所有用户*/
     List<Reader> allreader();
+    /*更改用户封禁状态*/
+    boolean changestatus(Integer readerid,Integer status);
 }
