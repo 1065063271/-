@@ -48,4 +48,9 @@ public class adminController {
         }
         else return "fail";
     }
+    @RequestMapping("addbook")
+    @ResponseBody
+    public String addbook(){
+        return null;
+    }
 }

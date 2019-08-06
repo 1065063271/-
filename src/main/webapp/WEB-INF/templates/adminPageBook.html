@@ -11,8 +11,10 @@
     <!--layui-->
     <link rel="stylesheet" href="/layui/css/layui.css" media="all">
     <!--<script src="../../layui/layui.all.js"></script>-->
-
     <style>
+        .layui-input, .layui-select, .layui-textarea {
+            background-color: rgba(248, 245, 171, 0.5);
+        }
         a:hover {
             text-decoration: none;
         }
@@ -64,6 +66,7 @@
                 </ul>
             </div>
             <div class="layui-col-xs10">
+                <button onclick="addbook()">wodiaonima</button>
                 <table class="layui-hide" id="test" lay-filter="test"></table>
 
                 <script type="text/html" id="toolbarDemo">
@@ -192,6 +195,41 @@
             })
         })
     });
+    function addbook() {
+        //页面层-自定义
+
+        layer.open({
+            type: 1,
+            title: false,
+            closeBtn: 0,
+            shadeClose: true,
+            area: ['300px', 'auto'],
+            skin: 'yourclass',
+            content: '<div style="width: 100%;background-color: rgba(246,248,131);" >\n' +
+                '                    <fieldset class="layui-elem-field" style="border-color:#777777">\n' +
+                '                        <legend class="" style="width: 90%;border-color:#777777" id="simple"><input style="width: 100%;background-color:F8F5AB " type="text" name="title" required lay-verify="required" placeholder="书名" autocomplete="off" class="layui-input">    </legend>\n' +
+                '                        <div class="layui-field-box" style="margin-top: -40px">\n' +
+                '                        </div>\n' +
+                '                        <p>\n' +
+                '                            <input type="text" name="title" required lay-verify="required" placeholder="作者" autocomplete="off" class="layui-input">\n' +
+                '                        </p>\n' +
+                '                        <p>\n' +
+                '                            <input type="text" name="title" required lay-verify="required" placeholder="概述" autocomplete="off" class="layui-input">\n' +
+                '                        </p>\n' +
+                '                        <p>\n' +
+                '                            <input type="text" name="title" required lay-verify="required" placeholder="出版社" autocomplete="off" class="layui-input">\n' +
+                '                        </p>\n' +
+                '                        <p>\n' +
+                '                            <input type="text" name="title" required lay-verify="required" placeholder="出版时间" autocomplete="off" class="layui-input">\n' +
+                '                        </p>\n' +
+                '                        <p>\n' +
+                '                            <input type="submit" value="提交" name="title"style="background-color: #fec422" required lay-verify="required" placeholder="出版时间" autocomplete="off" class="layui-input layui-btn">\n' +
+                '                        </p>\n' +
+                '                    </fieldset>\n' +
+                '                </div>'
+        });
+    }
 </script>
+
 
 </html>
