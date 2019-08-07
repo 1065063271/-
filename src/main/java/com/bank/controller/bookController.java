@@ -67,7 +67,7 @@ public class bookController {
         map.put(2,pageInfo.getPages());
         return map;
     }
-    /*返回点击的书籍详情内容页面*/
+    /*返回点击的书籍详情内容页面、以及点击量*/
     @RequestMapping("selcont")
     public String bookcont(Integer bookid,Model model){
         System.out.println(bookid);

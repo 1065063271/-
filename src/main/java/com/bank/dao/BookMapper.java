@@ -14,7 +14,7 @@ public interface BookMapper {
     List<Book> Fbook();
     /*流，按书名模糊查询*/
     List<Book> seltest(Selpojo selpojo);
-    /*携带id搜索书籍相关内容*/
+    /*携带id搜索书籍相关内容、以及点击量*/
     Book selcont(Integer bookid);
     /*判断是否第一次评分*/
     List<Rate> selrate(Rate rate);

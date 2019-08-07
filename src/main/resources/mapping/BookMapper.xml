@@ -38,9 +38,10 @@
   </select>
   <!--按类型查询-->
 
-  <!--携带id搜索点击的书籍内容-->
+  <!--携带id搜索点击的书籍内容、点击量-->
   <select id="selcont" parameterType="int" resultType="com.bank.pojo.Book">
     select * from booktable where bookid=#{bookid};
+    update booktable set clicknum=clicknum+1 where bookid=#{bookid};
   </select>
   <!--判断是否第一次评分-->
   <select id="selrate" parameterType="com.bank.pojo.Rate" resultType="com.bank.pojo.Rate">

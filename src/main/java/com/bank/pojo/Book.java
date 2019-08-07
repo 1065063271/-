@@ -66,6 +66,15 @@ public class Book implements Serializable {
     private String position;
     private Integer restnum;
     private Integer bookrate;
+    private Integer clicknum;
+
+    public Integer getClicknum() {
+        return clicknum;
+    }
+
+    public void setClicknum(Integer clicknum) {
+        this.clicknum = clicknum;
+    }
 
     public Integer getBookrate() {
         return bookrate;
