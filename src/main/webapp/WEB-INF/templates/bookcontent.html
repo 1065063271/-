@@ -71,8 +71,9 @@
                         <img style="width: 100%;" src="/img/timg.jpg" class="">
                         <div id="test1"></div>
                         <input type="hidden" name="bookrate" id="bookrate" th:value="${cont.bookrate}"/>
-                        <button class="layui-btn layui-btn-danger layui-btn-sm" onclick="flower()">送鲜花</button>
-                        <button class="layui-btn layui-btn-warm layui-btn-sm" style="margin-left: 5px"
+                        <button class="layui-btn layui-btn-danger layui-btn-sm" onclick="wherebook()" style="width: 90%;margin-left: 5%;">借阅书籍</button>
+                        <button class="layui-btn layui-btn-danger layui-btn-sm" onclick="flower()" style="margin-top: 5px">送鲜花</button>
+                        <button class="layui-btn layui-btn-warm layui-btn-sm" style="margin-left: 0;margin-top: 5px"
                                 data-toggle="modal"
                                 data-target="#magicalcoderMyModal-magical-coder-auto-id-1564231079733">写评论
                         </button>
@@ -86,9 +87,6 @@
                             <legend class="" style="border-color:#777777" id="simple">简介</legend>
                             <div class="layui-field-box" style="margin-top: -40px">
                             </div>
-                            <p>
-                                <object src="/img/flower.svg"></object>
-                            </p>
                             <p>
                                 作者：<span th:text="${cont.author}"></span>
                             </p>
@@ -169,6 +167,25 @@
             }
         })
     })
+    /*
+    * 获取书籍位置
+    * */
+    function wherebook() {
+        $.ajax({
+            type:"post",
+            url:"wherebook",
+            data:"bookid="+$("#bookid").val()+"&readerid="+readerid,
+            success:function (res) {
+                res=eval(res);
+                layer.msg("书本在："+res);
+            },
+            error:function () {
+                layer.msg('系统错误', function(){
+
+                });
+            }
+        })
+    }
     /*
     * 获取书籍id、用户id
     */
@@ -313,5 +330,6 @@
     $(document).ready(function () {
         /*此处查询本书所有品论*/
     })
+
 </script>
 </html>

@@ -205,31 +205,72 @@
             shadeClose: true,
             area: ['300px', 'auto'],
             skin: 'yourclass',
-            content: '<div style="width: 100%;background-color: rgba(246,248,131);" >\n' +
+            content: '<form id="form" name="form"><div style="width: 100%;background-color: rgba(246,248,131,1.0);" >\n' +
                 '                    <fieldset class="layui-elem-field" style="border-color:#777777">\n' +
-                '                        <legend class="" style="width: 90%;border-color:#777777" id="simple"><input style="width: 100%;background-color:F8F5AB " type="text" name="title" required lay-verify="required" placeholder="书名" autocomplete="off" class="layui-input">    </legend>\n' +
+                '                        <legend class="" style="width: 90%;border-color:#777777" id="simple"><input style="width: 100%;background-color:F8F5AB " type="text" name="bookname" required lay-verify="required" placeholder="书名" autocomplete="off" class="layui-input">    </legend>\n' +
                 '                        <div class="layui-field-box" style="margin-top: -40px">\n' +
                 '                        </div>\n' +
                 '                        <p>\n' +
-                '                            <input type="text" name="title" required lay-verify="required" placeholder="作者" autocomplete="off" class="layui-input">\n' +
+                '                            <input type="author" name="" required lay-verify="required" placeholder="作者" autocomplete="off" class="layui-input">\n' +
                 '                        </p>\n' +
                 '                        <p>\n' +
-                '                            <input type="text" name="title" required lay-verify="required" placeholder="概述" autocomplete="off" class="layui-input">\n' +
+                '                            <input type="printwhere" name="title" required lay-verify="required" placeholder="出版社" autocomplete="off" class="layui-input">\n' +
                 '                        </p>\n' +
                 '                        <p>\n' +
-                '                            <input type="text" name="title" required lay-verify="required" placeholder="出版社" autocomplete="off" class="layui-input">\n' +
-                '                        </p>\n' +
-                '                        <p>\n' +
-                '                            <input type="text" name="title" required lay-verify="required" placeholder="出版时间" autocomplete="off" class="layui-input">\n' +
-                '                        </p>\n' +
-                '                        <p>\n' +
-                '                            <input type="submit" value="提交" name="title"style="background-color: #fec422" required lay-verify="required" placeholder="出版时间" autocomplete="off" class="layui-input layui-btn">\n' +
+                '                            <input type="text" name="printdate" required lay-verify="required" placeholder="出版时间" autocomplete="off" class="layui-input">\n' +
                 '                        </p>\n' +
                 '                    </fieldset>\n' +
-                '                </div>'
+                '                </div></form>'
+            ,btn: ['提交', '关闭']
+            ,btnAlign: 'c'
+            ,yes: function(index, layero){
+                $.ajax({
+                    type:"post",
+                    url:"addbook",
+                    data:$("#form").serialize(),
+                    success:function (res) {
+                        res=eval(res);
+                        if (res==="success"){
+                            layer.msg("录入成功");
+                            document.getElementById("form").reset();
+                        }
+                        else
+                            layer.msg('录入失败，请稍候操作', function(){
+
+                            });
+                    },
+                    error:function () {
+                      layer.msg("系统错误");
+                    }
+                })
+
+            }
+            ,btn2: function(index, layero){
+                //按钮【按钮二】的回调
+                alert("关闭");
+                layer.close(index);
+                //return false 开启该代码可禁止点击该按钮关闭
+            }
+            ,cancel: function(){
+                //右上角关闭回调
+                alert("123");
+                //return false 开启该代码可禁止点击该按钮关闭
+            }
         });
     }
-</script>
+    function addbookh() {
+        $.ajax({
+            type:"post",
+            url:"addbook",
+            data:$("#form").serialize(),
+            success:function (res) {
+                res=eval(res);
+                if (res === "success"){
 
+                }
+            }
+        })
+    }
+</script>
 
 </html>

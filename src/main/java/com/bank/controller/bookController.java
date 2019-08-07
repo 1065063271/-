@@ -159,4 +159,12 @@ public class bookController {
         else
             return "fail";
     }
+    /*借阅模块*/
+    @RequestMapping("wherebook")
+    @ResponseBody
+    public String wherebook(Brrow brrow){
+        String wherebook=bookService.wherebook(brrow.getBookid());
+        bookService.wherebookp(brrow);
+        return wherebook;
+    }
 }

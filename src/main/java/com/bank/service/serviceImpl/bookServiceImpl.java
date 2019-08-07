@@ -125,7 +125,26 @@ public class bookServiceImpl implements bookService {
     }
 
     @Override
+    public String wherebook(Integer bookid) {
+        return bookMapper.wherebook(bookid);
+    }
+
+    @Override
+    public Boolean wherebookp(Brrow brrow) {
+        return bookMapper.wherebookp(brrow);
+    }
+
+    @Override
     public List<Book> allbook() {
         return bookMapper.allbook();
+    }
+
+    @Override
+    public boolean addbook(Book book) {
+        if (bookMapper.addbook(book)==true){
+            return true;
+        }
+        else
+            return false;
     }
 }

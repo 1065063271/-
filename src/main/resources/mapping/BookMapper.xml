@@ -85,9 +85,23 @@
     update readertable set readertable.flowernum=readertable.flowernum-1 where readerid=#{readerid};
     update booktable set booktable.flowernum=booktable.flowernum+1 where bookid=#{bookid};
   </insert>
+  <!--获取书籍位置;增加书籍的借阅量；记录个人借阅-->
+  <select id="wherebook" parameterType="java.lang.Integer" resultType="java.lang.String">
+    select position from booktable where bookid=#{bookid};
+  </select>
+  <update id="wherebookp" parameterType="com.bank.pojo.Brrow">
+    update booktable set booktable.brrownum=booktable.brrownum+1 where booktable.bookid=#{bookid};
+    update readertable set readertable.booknum=readertable.booknum+1 where readertable.readerid=#{readerid};
+    insert into brrowtable (readerid,bookid) values (#{readerid},#{bookid});
+  </update>
 
   <!--管理员部分-->
   <select id="allbook" resultType="com.bank.pojo.Book">
     select * from booktable
   </select>
+  <!--增加书籍-->
+  <insert id="addbook" parameterType="com.bank.pojo.Book">
+    insert into booktable (bookname, author, printwhere, printdate, introduction)
+    values (#{bookname},#{author},#{printwhere},#{printdate},#{introduction});
+  </insert>
 </mapper>

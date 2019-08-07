@@ -36,8 +36,14 @@ public interface bookService {
     boolean iszero(Integer readerid);
     /*读者赠送鲜花给书籍*/
     boolean flowersend(Flower flower);
+    /*获取书籍位置*/
+    String wherebook(Integer bookid);
+    /*借阅后的相关操作*/
+    Boolean wherebookp(Brrow brrow);
     /*
     * 管理员部分
     * */
     List<Book>allbook();
+    /*增加书籍*/
+    boolean addbook(Book book);
 }

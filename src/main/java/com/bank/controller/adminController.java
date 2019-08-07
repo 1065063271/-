@@ -43,14 +43,18 @@ public class adminController {
     @RequestMapping("changeStatus")
     @ResponseBody
     public String changeStatus(@RequestParam("readerid")Integer readerid,@RequestParam("status")Integer status){
-        if (readerService.changestatus(readerid,status)==true){
+        if (readerService.changestatus(readerid,status)){
             return "success";
         }
         else return "fail";
     }
     @RequestMapping("addbook")
     @ResponseBody
-    public String addbook(){
-        return null;
+    public String addbook(Book book){
+        if (bookService.addbook(book)){
+            return "success";
+        }
+        else
+            return "fail";
     }
 }

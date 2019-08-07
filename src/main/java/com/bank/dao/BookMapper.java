@@ -36,8 +36,14 @@ public interface BookMapper {
     Integer iszero(Integer readerid);
     /*读者赠送鲜花给书籍*/
     boolean flowersend(Flower flower);
+    /*获取书籍位置*/
+    String wherebook(Integer bookid);
+    /*借阅书籍后的相关更新*/
+    Boolean wherebookp(Brrow brrow);
     /*
     * 管理员部分
     * */
     List<Book>allbook();
+    /*增加书籍*/
+    boolean addbook(Book book);
 }
